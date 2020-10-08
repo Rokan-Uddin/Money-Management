@@ -4,6 +4,7 @@ const morgan =require('morgan')
 const cors =require('cors')
 const bodyParser = require('body-parser')
 const mongoose =require('mongoose')
+const userRouter = require('./routes/userRouter')
 
 const PORT = 4000
 const uri = process.env.MONGO_URL
@@ -14,6 +15,8 @@ app.use(cors())
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
 
+app.use('/api/users/',userRouter);
+
 app.get('/', (req,res)=> {
 	res.json({
 		messege:"Wellcome to Our Tutorial"
@@ -23,6 +26,6 @@ app.get('/', (req,res)=> {
 app.listen(4000,()=> {
 	console.log(`Server is running on ${PORT}`)
 	mongoose.connect(uri, {useNewUrlParser:true,useUnifiedTopology: true},  ()=> {
-		console.log('Databae Connected using env...')
+		console.log('Databae Connected ...')
 	})
 })
