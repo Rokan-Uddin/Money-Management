@@ -1,6 +1,8 @@
+const bcrypt = require('bcrypt')
+const jwt=require('jsonwebtoken')
 const registerValidator = require('../validators/registerValidator')
 const loginValidator = require('../validators/loginValidator')
-
+const User = require('../model/User')
 module.exports = {
 	login(req,res){
 			const {email,password}= req.body;
@@ -8,7 +10,34 @@ module.exports = {
 			if(!validate.isValid) {
 				res.status(400).json(validate.error)
 			}else {
-				res.json({ messege:`Wellcome, Your new email is ${email}` })
+				User.findOne({email})
+				.then(user=> {
+					if(!user) {
+						res.status(400).json({
+							messege:"User not found"
+						})
+					}
+					bcrypt.compare( password,user.password, (err,result)=> {
+						if(err) {
+							res.json({messege:"something is wrong"})
+						}
+						if(!result) {
+							res.json({messege:"password wrong"})
+						}						
+						if(result) {
+							const token=jwt.sign({
+								_id:user._id,
+								name:user.name,
+								email:user.email
+							},'SECRET',{expiresIn:'2h'})
+
+							res.json({
+								messege:"Successfully Login",
+								token:`Bearer ${token}`
+							})
+						}
+					})
+				})
 			}
 			
 	},
@@ -20,8 +49,37 @@ module.exports = {
 			res.status(400).json(validate.error)
 		}
 		else {
-			res.status(200).json({
-				messege:"FIne everything"
+			User.findOne({email})
+			.then(user=> {
+				if(user){
+					res.json({
+						messege:'Email already exists'
+					})
+				}
+				else {
+					bcrypt.hash(password,11,(err,hash)=> {
+						if(err) {
+							return res.status(500).json({ messege:'Server problem' })
+						}
+						const user = new User({
+							name,
+							email,
+							password:hash
+						})
+						user.save()
+						.then(user=> {
+							res.status(200).json({
+								messege:"User created Successfully",
+								user
+							})
+						})
+					})
+				}
+			})
+			.catch(error=> {
+				res.status(500).json({
+					messege:'Server problem'
+				})
 			})
 		}
 	}
