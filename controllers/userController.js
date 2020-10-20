@@ -19,7 +19,7 @@ module.exports = {
 					}
 					bcrypt.compare( password,user.password, (err,result)=> {
 						if(err) {
-							res.json({messege:"something is wrong"})
+							res.status(400).json({messege:"something is wrong"})
 						}
 						if(!result) {
 							res.json({messege:"password wrong"})
@@ -37,6 +37,9 @@ module.exports = {
 							})
 						}
 					})
+				})
+				.catch(error=> {
+					res.status(400).json(error)
 				})
 			}
 			
