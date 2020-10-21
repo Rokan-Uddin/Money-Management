@@ -16,7 +16,7 @@ const validate = user => {
 	else if(user.password.length <6) {
 		error.password =" Password must be largh than 6"
 	} 
-	else if(user.password != user.confirmpassword) {
+	else if(user.password != user.confirmPassword) {
 		error.password ="Password does\'t match"
 	}
 

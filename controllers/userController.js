@@ -45,8 +45,8 @@ module.exports = {
 			
 	},
 	register(req,res) {
-		const {name,email,password,confirmpassword} = req.body;
-		const validate= registerValidator({name,email,password,confirmpassword})
+		const {name,email,password,confirmPassword} = req.body;
+		const validate= registerValidator({name,email,password,confirmPassword})
 
 		if(!validate.isValid) {
 			res.status(400).json(validate.error)

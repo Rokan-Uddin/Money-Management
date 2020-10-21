@@ -8,9 +8,10 @@ class Login extends React.Component {
 	}
 
 	changeHandler = event => {
-		this.state({
+		this.setState({
 			[event.target.name] : event.target.value
 		})
+		event.preventDefault();
 	}
 
 	submitHandler = event => {
@@ -20,7 +21,7 @@ class Login extends React.Component {
 		let {email,password,error} =this.state;
 		return(
 		<div className="row">
-		<form className="col-sm-6 offset-sm-3 mt-3 " onsubmit={this.submitHandler}>
+		<form className="col-sm-6 offset-sm-3 mt-3 " onSubmit={this.submitHandler}>
 		<h1 className="text-center"> Login Here </h1>
 
 			<div className="form-group">
@@ -31,7 +32,7 @@ class Login extends React.Component {
 				className='form-control'
 				name='email'
 				value={email}
-				onchange={this.changeHandler}
+				onChange={this.changeHandler}
 				 />
 			</div>
 			<div className="form-group">
@@ -42,7 +43,7 @@ class Login extends React.Component {
 				className='form-control'
 				name='password'
 				value={password}
-				onchange={this.changeHandler}
+				onChange={this.changeHandler}
 				 />
 			</div>
 			<div className='d-flex justify-content-between'>
