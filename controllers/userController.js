@@ -30,7 +30,7 @@ module.exports = {
 								name:user.name,
 								email:user.email,
 								amount:user.amount,
-								income:user.income,
+								balance:user.balance,
 								expense:user.expense,
 								transactions:user.transactions
 							},'SECRET',{expiresIn:'2h'})
@@ -71,7 +71,11 @@ module.exports = {
 						const user = new User({
 							name,
 							email,
-							password:hash
+							password:hash,
+							balance:0,
+							income:0,
+							expense:0,
+							transactions:[]
 						})
 						user.save()
 						.then(user=> {
@@ -89,5 +93,11 @@ module.exports = {
 				})
 			})
 		}
+	},
+	getuser(req,res) {
+		User.find()
+		.then(user => {
+			res.status(200).json(user)
+		})
 	}
 }

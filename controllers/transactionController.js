@@ -12,7 +12,7 @@ module.exports= {
 
 		transaction.save()
 		.then(trans => {
-			let updatedUser= {...req.user}
+			let updatedUser= {...req.user._doc}
 			if(type==='income') {
 				updatedUser.balance= updatedUser.balance+amount
 				updatedUser.income=updatedUser.income+amount
@@ -22,11 +22,18 @@ module.exports= {
 				updatedUser.expense=updatedUser.expense+amount
 			}
 			updatedUser.transactions.unshift(trans._id)
-			User.findByIdAndUpdate(updatedUser._id,{ $set:updatedUser})
-			res.status(201).json({
+			User.findByIdAndUpdate(updatedUser._id,{ $set:updatedUser},{new:true})
+			.then(result => {
+				res.status(201).json({
 				messege:'Transaction Created Successfully',
-				...trans
+				...trans._doc,
+				user:result 
 			})
+			})
+			.catch(err => {
+				res.status(201).json(err)
+			})
+
 		})
 		.catch(err=>res.status(400).json(err))
 	},

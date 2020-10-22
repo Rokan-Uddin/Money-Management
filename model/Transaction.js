@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 const TransactionSchema = new Schema({
 	amount: {
-		type:String,
+		type:Number,
 		required:true
 	},
 
@@ -18,5 +18,5 @@ const TransactionSchema = new Schema({
 	}
 },{timestamps:true})
 
-const Transaction = mongoose.model('User',TransactionSchema)
+const Transaction = mongoose.model('Transaction',TransactionSchema)
 module.exports = Transaction
