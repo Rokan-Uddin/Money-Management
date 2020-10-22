@@ -4,9 +4,25 @@ import {BrowserRouter,Route,Switch} from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
-
 import {Provider} from 'react-redux';
 import store from './store/index';
+
+import jwtDecode from 'jwt-decode';
+import * as Types from './store/actions/types';
+import setTokenHeader from './utils/setTokenHeader';
+
+const token=localStorage.getItem('auth_token')
+if(token) {
+  let decode = jwtDecode(token);
+  setTokenHeader(token);
+  store.dispatch({
+    type:Types.SET_USER,
+    payload:{
+      user:decode
+    }
+  })
+}
+
 function App() {
   return (
   	<Provider store={store} >

@@ -7,7 +7,7 @@ const validate = user => {
 	else if(!validator.isEmail(user.email)){
 		error.email="Email isn\'t valid"
 	}
-	else if(!user.password){
+	if(!user.password){
 		error.password="Please provide your password"
 	}
 
