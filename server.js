@@ -4,7 +4,6 @@ const morgan =require('morgan')
 const cors =require('cors')
 const bodyParser = require('body-parser')
 const mongoose =require('mongoose')
-const userRouter = require('./routes/userRouter')
 
 const PORT = 4000
 const uri = process.env.MONGO_URL
@@ -15,7 +14,8 @@ app.use(cors())
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
 
-app.use('/api/users/',userRouter);
+app.use('/api/users/',require('./routes/userRouter'));
+app.use('/api/transactions/',require('./routes/transactionRouter'))
 
 app.get('/', (req,res)=> {
 	res.json({

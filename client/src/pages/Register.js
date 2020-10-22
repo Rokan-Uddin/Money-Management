@@ -13,7 +13,7 @@ class Register extends React.Component {
 	}
 
 	static getDerivedStateFromProps(nextProps,prevState) {
-		if(JSON.stringify(nextProps.auth.error) != JSON.stringify(prevState.error)) {
+		if(JSON.stringify(nextProps.auth.error) !== JSON.stringify(prevState.error)) {
 			return {
 				error:nextProps.auth.error
 			}
