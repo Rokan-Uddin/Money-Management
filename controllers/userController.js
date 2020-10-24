@@ -13,7 +13,7 @@ module.exports = {
 				User.findOne({email})
 				.then(user=> {
 					if(!user) {
-						res.status(400).json({
+						res.status(404).json({
 							messege:"User not found"
 						})
 					}
@@ -79,7 +79,7 @@ module.exports = {
 						})
 						user.save()
 						.then(user=> {
-							res.status(200).json({
+							res.status(201).json({
 								messege:"User created Successfully",
 								user
 							})
@@ -99,6 +99,6 @@ module.exports = {
 		.then(user => {
 			res.status(200).json(user)
 		})
-		.catch(err=> res.status(200).json(err))
+		.catch(err=> res.status(404).json(err))
 	}
 }

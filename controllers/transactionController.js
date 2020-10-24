@@ -38,7 +38,8 @@ module.exports= {
 		.catch(err=>res.status(400).json(err))
 	},
 	getAll(req,res) {
-		Transaction.find()
+		let {_id} = req.user
+		Transaction.find({author:_id})
 		.then(transactions=> {
 			if(transactions.length==0) {
 				res.status(200).json({
