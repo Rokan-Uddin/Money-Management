@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
+import CreateTransaction from './pages/CreateTransaction'
 import {Provider} from 'react-redux';
 import store from './store/index';
 
@@ -34,6 +35,7 @@ function App() {
        <Route path='/login' component={Login} />
        <Route path='/register' component={Register} />
        <Route path='/dashboard' component={Dashboard} />
+       <Route path='/create' component={CreateTransaction} />
     </Switch>
     </div>
     </BrowserRouter>
