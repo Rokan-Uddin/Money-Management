@@ -33,7 +33,6 @@ class Register extends React.Component {
 		this.props.register({name,email,password,confirmPassword},this.props.history)
 	}
 	render() {
-		console.log(this.props);
 		let {name,email,password,confirmPassword,error} =this.state;
 		return(
 		<div className="row">

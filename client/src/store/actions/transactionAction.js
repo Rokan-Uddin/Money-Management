@@ -13,3 +13,14 @@ export const loadTransaction = () => dispatch => {
 	})
 	.catch(err=> console.log(err))
 }
+export const addNewTransaction = transaction => dispatch => {
+    Axios.post('/api/transactions/', transaction)
+        .then(response => {
+            dispatch({type: Types.CREATE_TRANSACTION, payload: { transaction: response.data}})
+            dispatch({type:Types.SET_USER, payload: {user:response.data.user}})
+
+        })
+        .catch(error => {
+            console.log(error)
+        })
+}

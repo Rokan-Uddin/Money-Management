@@ -14,15 +14,15 @@ module.exports= {
 		.then(trans => {
 			let updatedUser= {...req.user._doc}
 			if(type==='income') {
-				updatedUser.balance= updatedUser.balance+amount
-				updatedUser.income=updatedUser.income+amount
+				updatedUser.balance = updatedUser.balance + parseInt(amount);
+				updatedUser.income = updatedUser.income + parseInt(amount);
 			}
 			else if(type === 'expense') {
-				updatedUser.balance=updatedUser.balance- amount
-				updatedUser.expense=updatedUser.expense+amount
+				updatedUser.balance=updatedUser.balance - parseInt(amount);
+				updatedUser.expense=updatedUser.expense + parseInt(amount);
 			}
 			updatedUser.transactions.unshift(trans._id)
-			User.findByIdAndUpdate(updatedUser._id,{ $set:updatedUser},{new:true})
+			User.findByIdAndUpdate({_id:updatedUser._id},{ $set:updatedUser},{new:true})
 			.then(result => {
 				res.status(201).json({
 				messege:'Transaction Created Successfully',

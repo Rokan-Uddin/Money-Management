@@ -31,6 +31,7 @@ module.exports = {
 								email:user.email,
 								amount:user.amount,
 								balance:user.balance,
+								income:user.income,
 								expense:user.expense,
 								transactions:user.transactions
 							},'SECRET',{expiresIn:'2h'})

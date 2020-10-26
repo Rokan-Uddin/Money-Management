@@ -1,6 +1,7 @@
 import React from 'react'
 import Modal from 'react-modal'
-
+import {connect} from 'react-redux';
+import {addNewTransaction} from '../store/actions/transactionAction'
 class CreateTransaction extends React.Component {
 
     state = {
@@ -8,7 +9,21 @@ class CreateTransaction extends React.Component {
         type: '',
         note: ''
     }
+   changeHandler = event => {
+        this.setState({
+            [event.target.name]: event.target.value
+        })
+    }
 
+    submitHandler = event => {
+        event.preventDefault()
+        this.props.addNewTransaction(this.state)
+        this.setState({
+            amount: 0,
+            type: '',
+            note: ''
+        })
+    }
     render() {
         let { amount, note } = this.state
         return (
@@ -63,4 +78,4 @@ class CreateTransaction extends React.Component {
     }
 }
 
-export default CreateTransaction
+export default connect(null, { addNewTransaction })(CreateTransaction)
