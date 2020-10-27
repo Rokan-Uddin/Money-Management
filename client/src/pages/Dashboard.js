@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { loadTransaction } from '../store/actions/transactionAction'
+import { loadTransaction,removeTransaction } from '../store/actions/transactionAction'
 import CreateTransaction from './CreateTransaction';
 
 
@@ -57,6 +57,10 @@ class Dashboard extends React.Component {
                                     className='list-group-item'>
                                     <p>Type: {transaction.type}</p>
                                     <p>Amount: {transaction.amount}</p>
+                                    <button onClick={()=> {
+                                        this.props.removeTransaction({id:transaction._id})
+                                        
+                                    }}>Remove</button>
                                 </li>
                             ))
                         }
@@ -72,4 +76,4 @@ const mapStateToProps = state => ({
     transactions: state.transactions
 })
 
-export default connect(mapStateToProps, { loadTransaction })(Dashboard)
+export default connect(mapStateToProps, { loadTransaction, removeTransaction })(Dashboard)

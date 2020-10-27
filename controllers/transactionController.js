@@ -69,22 +69,24 @@ module.exports= {
 	},
 	update(req,res) {
 		let {transactionId}= req.params
-		Transaction.findByIdAndUpdate(transactionId,{$set:req.body})
+		Transaction.findByIdAndUpdate(transactionId,{$set:req.body},{new:true})
 		.then(result => {
 			res.status(200).json({
 				messege:'Updated Successfully',
-				...result
+				...result._doc
 			})
 		})
 		.catch(err=> res.status(200).json(err))
 	},
 	remove(req,res) {
+		
 		let {transactionId}= req.params
-		Transaction.findByIdAndRemove(transactionId)
+		Transaction.findOneAndDelete({type:'income'})
 		.then(result=> {
+			console.log(result);
 			res.status(200).json({
 				messege:'Deleted Successfully',
-				...result
+				...result._doc
 			})
 		})
 		.catch(err=> res.status(200).json(err))
