@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { loadTransaction,removeTransaction } from '../store/actions/transactionAction'
 import CreateTransaction from './CreateTransaction';
+import UpdateTransaction from './UpdateTransaction';
 
 
 class Dashboard extends React.Component {
@@ -23,7 +24,19 @@ class Dashboard extends React.Component {
             createModalOpen: false
         })
     }
+    openUpdateModal = (id) => {
+        this.setState({
+            updateModalOpen: true,
+            id
+        })
+    }
 
+    closeUpdateModal = () => {
+        this.setState({
+            updateModalOpen: false,
+            id: ''
+        })
+    }
 
     componentDidMount() {
         this.props.loadTransaction()
@@ -37,6 +50,7 @@ class Dashboard extends React.Component {
                         isOpen={this.state.createModalOpen}
                         close={this.closeCreateModal}
                  />
+
                 <div className="col-md-8 offset-md-2">
                     <h1 className="text-center">Welcome {auth.user.name} </h1>
                     <p className='text-center'>You Balance is {auth.user.balance} </p>
@@ -55,12 +69,29 @@ class Dashboard extends React.Component {
                                 <li
                                     key={transaction._id}
                                     className='list-group-item'>
+                                   
                                     <p>Type: {transaction.type}</p>
                                     <p>Amount: {transaction.amount}</p>
-                                    <button onClick={()=> {
+                                    
+                                    {
+                                    this.state.id === transaction._id ? 
+                                    <UpdateTransaction
+                                        isOpen={this.state.updateModalOpen}
+                                        close={this.closeUpdateModal}
+                                        transaction={transaction}
+                                    /> : null 
+                                    }
+                                    
+                                    <button className='btn btn-danger' onClick={()=> {
                                         this.props.removeTransaction({id:transaction._id})
                                         
                                     }}>Remove</button>
+
+                                    <button className='btn btn-success' onClick={()=> {
+                                        this.openUpdateModal(transaction._id)
+                                        
+                                    }}>Update</button>
+                                   
                                 </li>
                             ))
                         }
