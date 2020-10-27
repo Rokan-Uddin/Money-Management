@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
+import Navigation from './pages/Navigation'
 import CreateTransaction from './pages/CreateTransaction'
 import {Provider} from 'react-redux';
 import store from './store/index';
@@ -29,7 +30,8 @@ function App() {
   return (
   	<Provider store={store} >
   	<BrowserRouter>
-    <div className="container"> 
+    <div className="container">
+    <Navigation />
     <Switch>
     	 <Route path='/' exact  component={Home} />
        <Route path='/login' component={Login} />
