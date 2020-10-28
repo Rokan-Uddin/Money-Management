@@ -31,7 +31,6 @@ export const login= (user,history) => dispatch => {
 		localStorage.setItem('auth_token',token);
 		setTokenHeader(token);
 		let decode=jwtDecode(token)
-		console.log(decode);
 		dispatch({
 			type:Types.SET_USER,
 			payload:{

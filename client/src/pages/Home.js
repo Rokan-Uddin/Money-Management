@@ -9,9 +9,7 @@ class Home extends React.Component {
 				<h1>I'm Home</h1>
 				{
 					this.props.auth.isAuthenticated ? 
-					<button onClick={()=> {
-						this.props.logout(this.props.history)
-					}} > Logout </button> : 
+					null  : 
 					<Link to='/login'>
 						<button>Login</button>
 					</Link>
