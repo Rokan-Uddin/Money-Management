@@ -61,7 +61,7 @@ class CreateTransaction extends React.Component {
                             
                     </div>
                     <div className='form-group'>
-                        <label htmlFor='note'> Amount: </label>
+                        <label htmlFor='note'> Note: </label>
                             <textarea
                                 className='form-control'
                                 placeholder="Enter a Note"
